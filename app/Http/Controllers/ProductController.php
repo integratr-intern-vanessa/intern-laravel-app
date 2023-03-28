@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Person;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-class PersonController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,9 @@ class PersonController extends Controller
      */
     public function index()
     {
-        $persons = Person::all();
+        $products = Product::all();
 
-        return response()->json($persons, 200);
+        return response()->json($products, 200);
     }
 
     /**
@@ -40,7 +40,7 @@ class PersonController extends Controller
     {
             $payload = $this->payload($request);
 
-            $payload = Person::create($payload);
+            $payload = Product::create($payload);
 
             return response()->json($payload, 200);
         //
@@ -54,9 +54,9 @@ class PersonController extends Controller
      */
     public function show($id)
     {
-        $person = Person::where('id', $id)->first();
+        $products = Product::where('id', $id)->first();
 
-        return response()->json($person, 200);
+        return response()->json($products, 200);
         //
     }
 
@@ -82,11 +82,11 @@ class PersonController extends Controller
     {
         $payload = $this->payload($request);
 
-        $person = Person::where('id', $id)->first();
+        $products = Product::where('id', $id)->first();
 
-        $person->update($payload);
+        $products->update($payload);
 
-        return response()->json($person, 200);
+        return response()->json($products, 200);
 
 
         //
@@ -100,8 +100,8 @@ class PersonController extends Controller
      */
     public function destroy(string $id)
     {
-        $person = Person::where('id', $id)->first();
-        $person->delete();
+        $products = Product::where('id', $id)->first();
+        $products->delete();
         return response('', 204);
 
         //
@@ -110,9 +110,9 @@ class PersonController extends Controller
 {
     return $this->validate($request, [
         'name' => ['required'],
-        'gender' => ['required', Rule::in(['Male', 'Female'])],
-        'place_of_birth'=> ['required'],
-        'birthday' => ['required', 'date']
+        'quantity' => ['required'],
+        'prices'=> ['required'],
+
 
     ]);
 
